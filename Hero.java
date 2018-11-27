@@ -40,13 +40,21 @@ public class Hero extends Mover {
 
     public void handleInput() {
         if (Greenfoot.isKeyDown("w")) {
-            velocityY = -10;
+            if (isOnGround) {
+                velocityY = -17;
+                animationJump(getWidth(), getHeight(), 2);
+            }
         }
-
         if (Greenfoot.isKeyDown("a")) {
-            velocityX = -2;
+            velocityX = -5;
+            direction = "left";
+            animationWalk(getWidth(), getHeight(), player);
         } else if (Greenfoot.isKeyDown("d")) {
-            velocityX = 2;
+            velocityX = 5;
+            direction = "right";
+            animationWalk(getWidth(), getHeight(), player);
+        } else {
+            animationStand(getWidth(), getHeight(), player);
         }
     }
 
