@@ -14,4 +14,4 @@ Om een merge conflic te creëren kan je het volgende doen:
 
 Met deze commando haal je de master binnen op de mergeExample branch.
 
-Nu kan je de complicten oplossen en oefenen.
+Nu kan je de complicten oplossen en oefenen. De mergetool kan je openen met het command `git mergetool`
