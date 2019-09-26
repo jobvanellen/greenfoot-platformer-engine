@@ -1,3 +1,4 @@
+package nl.rocmondriaan.greenfoot;
 
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
