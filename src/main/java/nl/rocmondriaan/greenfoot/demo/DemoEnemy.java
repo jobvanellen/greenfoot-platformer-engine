@@ -1,12 +1,12 @@
-package nl.rocmondriaan.greenfoot;
+package nl.rocmondriaan.greenfoot.demo;
 
-import greenfoot.*;
+import nl.rocmondriaan.greenfoot.engine.Mover;
 
 /**
  *
  * @author R. Springer
  */
-public class Enemy extends Mover {
+public class DemoEnemy extends Mover {
 
     private int walkRange;
     private int xMin;
@@ -14,7 +14,7 @@ public class Enemy extends Mover {
     private boolean firstAct;
     private int speed;
 
-    public Enemy() {
+    DemoEnemy() {
         super();
         setImage("pokerMad.png");
         getImage().mirrorHorizontally();

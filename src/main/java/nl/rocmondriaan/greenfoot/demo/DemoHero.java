@@ -1,6 +1,8 @@
-package nl.rocmondriaan.greenfoot;
+package nl.rocmondriaan.greenfoot.demo;
 
 import greenfoot.*;
+import nl.rocmondriaan.greenfoot.engine.*;
+
 import java.util.List;
 
 /**
@@ -36,7 +38,7 @@ public class DemoHero extends Mover {
         }
         applyVelocity();
 
-        for (Actor enemy : getIntersectingObjects(Enemy.class)) {
+        for (Actor enemy : getIntersectingObjects(DemoEnemy.class)) {
             if (enemy != null) {
                 getWorld().removeObject(this);
                 // Met return eindig je deze methode en loop

@@ -1,4 +1,4 @@
-package nl.rocmondriaan.greenfoot;
+package nl.rocmondriaan.greenfoot.engine;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

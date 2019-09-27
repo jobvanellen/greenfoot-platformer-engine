@@ -1,6 +1,4 @@
-package nl.rocmondriaan.greenfoot;
-
-import greenfoot.*;
+package nl.rocmondriaan.greenfoot.engine;
 
 /**
  *

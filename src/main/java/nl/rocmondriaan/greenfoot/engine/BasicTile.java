@@ -1,4 +1,4 @@
-package nl.rocmondriaan.greenfoot;
+package nl.rocmondriaan.greenfoot.engine;
 
 import greenfoot.*;
 
@@ -13,7 +13,7 @@ public class BasicTile extends Actor {
 
     protected static int id;
 
-    protected TileType type = TileType.DEFAULT;
+    public TileType type = TileType.DEFAULT;
     protected int mapIcon = -1;
     protected int mapID = -1;
     private int colom = -1;
