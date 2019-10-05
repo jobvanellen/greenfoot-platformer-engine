@@ -8,6 +8,8 @@ import nl.rocmondriaan.greenfoot.engine.Mover;
  */
 public class DemoEnemy extends Mover {
 
+    private final double gravity;
+    private final double acc;
     private int walkRange;
     private int xMin;
     private int xMax;
@@ -21,6 +23,8 @@ public class DemoEnemy extends Mover {
         walkRange = 140;
         firstAct = true;
         speed = 1;
+        gravity = 9.8;
+        acc = 0.6;
     }
 
     @Override
@@ -34,6 +38,10 @@ public class DemoEnemy extends Mover {
             xMax = x + walkRange / 2;
         }
 
+        velocityY += acc;
+        if (velocityY > gravity) {
+            velocityY = gravity;
+        }
         velocityX = speed;
         applyVelocity();
         if (getX() >= xMax) {
