@@ -16,8 +16,11 @@ public class BasicTile extends Actor {
     public TileType type = TileType.DEFAULT;
     protected int mapIcon = -1;
     protected int mapID = -1;
-    private int colom = -1;
+    protected int colom = -1;
     protected int row = -1;
+    protected boolean slope = false;
+    protected int slopeX = 1;
+    protected int slopeY = -1;
 
     /**
      * Constructor of the tile. Creates a tile based on image, width and height
@@ -96,5 +99,29 @@ public class BasicTile extends Actor {
 
     public void setRow(int row) {
         this.row = row;
+    }
+
+    public boolean isSlope() {
+        return slope;
+    }
+
+    public void setSlope(boolean slope) {
+        this.slope = slope;
+    }
+
+    public int getSlopeX() {
+        return slopeX;
+    }
+
+    public void setSlopeX(int slopeX) {
+        this.slopeX = slopeX;
+    }
+
+    public int getSlopeY() {
+        return slopeY;
+    }
+
+    public void setSlopeY(int slopeY) {
+        this.slopeY = slopeY;
     }
 }

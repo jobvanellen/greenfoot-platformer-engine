@@ -6,12 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author R. Springer
  */
 public class CollisionEngine {
 
-    public static final boolean DEBUG = false;
+    public static boolean DEBUG = false;
     private final Camera camera;
     private final TileEngine tileEngine;
     private final List<Mover> collidingActors;
@@ -21,7 +20,7 @@ public class CollisionEngine {
      * The constructor of the CollisionEngine.
      *
      * @param tileEngine The TileEngine
-     * @param camera The camera
+     * @param camera     The camera
      */
     public CollisionEngine(TileEngine tileEngine, Camera camera) {
         this.tileEngine = tileEngine;
@@ -88,10 +87,10 @@ public class CollisionEngine {
     /**
      * This methode will detect if a Mover is overlapping with the tiles
      *
-     * @param mover A Mover class or a extend of it.
-     * @param actorLeft The far most left x position of the Mover.
-     * @param actorRight The far most right x position of the Mover.
-     * @param actorTop The far most top y position of the Mover.
+     * @param mover       A Mover class or a extend of it.
+     * @param actorLeft   The far most left x position of the Mover.
+     * @param actorRight  The far most right x position of the Mover.
+     * @param actorTop    The far most top y position of the Mover.
      * @param actorBottom The far most bottom y position of the Mover.
      * @return
      */
@@ -102,12 +101,12 @@ public class CollisionEngine {
     /**
      * This methode will get all the tiles at the different x and y position
      *
-     * @param top The far most top y position
-     * @param left The far most left x position
-     * @param right The far most right x position
+     * @param top    The far most top y position
+     * @param left   The far most left x position
+     * @param right  The far most right x position
      * @param bottom The far most bottom y position
-     * @param midX The middle x position
-     * @param midY The middle y position
+     * @param midX   The middle x position
+     * @param midY   The middle y position
      * @return Returns a list of tiles that are located on those positions.
      */
     public List<Tile> getCollidingTiles(int top, int left, int right, int bottom, int midX, int midY, boolean addNoneSolid) {
@@ -166,9 +165,9 @@ public class CollisionEngine {
     /**
      * Getting the colliding Tiles from the collision engine
      *
-     * @param mover A Mover class or a extend of it.
+     * @param mover        A Mover class or a extend of it.
      * @param addNoneSolid If true it also add tiles that are not solid to the
-     * list
+     *                     list
      * @return A List of overlapping tiles.
      */
     public List<Tile> getCollidingTiles(Mover mover, boolean addNoneSolid) {
@@ -183,7 +182,7 @@ public class CollisionEngine {
      * This methode will resolves the overlapping.
      *
      * @param mover A Mover class or a extend of it.
-     * @param tile A Tile class or a extend of it.
+     * @param tile  A Tile class or a extend of it.
      * @return Returns a true if the overlap was resolved.
      */
     public boolean resolve(Mover mover, Tile tile) {
@@ -191,8 +190,8 @@ public class CollisionEngine {
         int right = getActorRight(mover);
         int top = getActorTop(mover);
         int bottom = getActorBottom(mover);
-        int x = mover.getX();
-        int y = mover.getY();
+        double x = mover.getX();
+        double y = mover.getY();
         int topTile = CollisionEngine.getActorTop(tile) + camera.getY();
         int bottomTile = CollisionEngine.getActorBottom(tile) + camera.getY();
         int leftTile = CollisionEngine.getActorLeft(tile) + camera.getX();
@@ -201,38 +200,66 @@ public class CollisionEngine {
         double overlapX = 0;
         double overlapY = 0;
 
-        if (bottom > topTile && top < bottomTile) {
-            if (mover.velocityY >= 0) {
-                overlapY = topTile - bottom;
-            } else {
-                overlapY = bottomTile - top;
+        if (tile.isSlope()) {
+            double currentX = left;
+            double tileSide = rightTile;
+            if(tile.getSlopeX() > 0) {
+                currentX = right;
+                tileSide = leftTile;
             }
-        }
 
-        if (right > leftTile && left < rightTile) {
-            if (mover.velocityX >= 0) {
-                overlapX = leftTile - right;
-            } else {
-                overlapX = rightTile - left;
+            double deltaX = 0;
+            if(currentX >= leftTile && currentX <= rightTile) {
+                deltaX = currentX - tileSide;
             }
-        }
+            else return true;
+            double topSlope = tile.getSlopeY() * deltaX + bottomTile;
 
-        if (DEBUG) {
-            System.out.println("Player:\n" + mover);
-            System.out.println("Tile:\n" + tile);
-        }
-
-        if (Math.abs(overlapX) > 0 && Math.abs(overlapY) > 0) {
-            if (Math.abs(overlapY) > Math.abs(overlapX)) {
-                mover.velocityX = 0;
-                x += overlapX;
-            } else {
+            if (bottom > topSlope) {
                 mover.velocityY = 0;
-                y += overlapY;
+                y = topSlope - getActorHalfHeigth(mover);
+                mover.setLocation((int)Math.round(x), (int)Math.round(y));
             }
-            mover.setLocation(x, y);
-            return true;
+            if (DEBUG) {
+                System.out.println("Player:\n" + mover);
+                System.out.println("X:\n" + x);
+                System.out.println("Y:\n" + y);
+                System.out.println("leftTile:\n" + leftTile);
+                System.out.println("topSlope:\n" + topSlope);
+                System.out.println("DeltaX:\n" + deltaX);
+                System.out.println("left:\n" + left);
+                System.out.println("Overlap:\n" + overlapY);
+            }
+        } else {
+            if (bottom > topTile && top < bottomTile) {
+                if (mover.velocityY >= 0) {
+                    overlapY = topTile - bottom;
+                } else {
+                    overlapY = bottomTile - top;
+                }
+            }
+
+            if (right > leftTile && left < rightTile) {
+                if (mover.velocityX >= 0) {
+                    overlapX = leftTile - right;
+                } else {
+                    overlapX = rightTile - left;
+                }
+            }
+            if (Math.abs(overlapX) > 0 && Math.abs(overlapY) > 0) {
+                if (Math.abs(overlapY) > Math.abs(overlapX)) {
+                    mover.velocityX = 0;
+                    x += overlapX;
+                } else {
+                    mover.velocityY = 0;
+                    y += overlapY;
+                }
+                mover.setLocation((int)Math.round(x), (int) Math.round(y));
+                return true;
+            }
         }
+
+
         return false;
     }
 
