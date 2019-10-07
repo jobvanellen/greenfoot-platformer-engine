@@ -80,11 +80,11 @@ public class DemoTileFactory extends TileFactory {
                 break;
             case 15:
                 tile = new Tile("grassHillLeft2.png", TileEngine.TILE_WIDTH, TileEngine.TILE_HEIGHT, TileType.GROUND);
-                tile.isSolid = false;
+                tile.isSolid = true;
                 break;
             case 16:
                 tile = new Tile("grassHillRight2.png", TileEngine.TILE_WIDTH, TileEngine.TILE_HEIGHT, TileType.GROUND);
-                tile.isSolid = false;
+                tile.isSolid = true;
                 break;
             case 17:
                 tile = new Tile("grassHillLeft.png", TileEngine.TILE_WIDTH, TileEngine.TILE_HEIGHT, TileType.GROUND);
