@@ -89,11 +89,13 @@ public class DemoTileFactory extends TileFactory {
             case 17:
                 tile = new Tile("grassHillLeft.png", TileEngine.TILE_WIDTH, TileEngine.TILE_HEIGHT, TileType.GROUND);
                 tile.isSolid = true;
+                // Experimental
                 tile.setSlope(true);
                 break;
             case 18:
                 tile = new Tile("grassHillRight.png", TileEngine.TILE_WIDTH, TileEngine.TILE_HEIGHT, TileType.GROUND);
                 tile.isSolid = true;
+                // Experimental
                 tile.setSlope(true);
                 tile.setSlopeY(1);
                 tile.setSlopeX(-1);
